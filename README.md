@@ -69,9 +69,9 @@ Na barra de título da ficha, abra o menu (os três pontinhos) → **Configurar 
 
 O personagem não fica no meio da ficha: o retrato é uma moldura vertical que mostra o **topo** da imagem (ótimo para rostos), mesmo que a arte seja de corpo inteiro ou em qualquer pose. **Clique no retrato** para abrir a imagem completa em uma janela. Passe o mouse para ver o lápis de trocar a imagem.
 
-### Cor de destaque por personagem
+### Cor e textura por personagem
 
-O ícone de paleta no canto superior direito muda a cor da ficha toda: vermelho, azul, verde, âmbar, roxo ou osso. Sem escolha, a cor vem da classe:
+O ícone de paleta no canto superior direito abre duas fileiras: a **cor de destaque** (vermelho, azul, verde, âmbar, roxo ou osso) e a **textura de fundo**. Sem escolha, a cor vem da classe:
 
 | Classe | Cor padrão |
 |---|---|
@@ -80,11 +80,15 @@ O ícone de paleta no canto superior direito muda a cor da ficha toda: vermelho,
 | Ocultista | roxo |
 | Sobrevivente | verde |
 
-A cor é por personagem e fica salva no ator. Só quem é dono do personagem consegue trocar.
+A cor e a textura são por personagem e ficam salvas no ator. Só quem é dono do personagem consegue trocar.
 
 ![Cores](docs/img/cores.png)
 
 ![Paleta](docs/img/paleta.png)
+
+**Texturas de fundo** (da esquerda para a direita, de cima para baixo): *Tecido* (padrão, preto com trama de linho, manchas de tinta e riscos, na linha das fichas do playtest), *Concreto*, *Papel velho*, *Liso* e *Névoa*.
+
+![Texturas](docs/img/texturas.png)
 
 ### PV, SAN e PE em blocos
 
@@ -118,7 +122,7 @@ NOME DA PERÍCIA   [selo +10]  +  [◆ 3] AGI   [bônus]
 
 ### Demais abas
 
-Inventário, Habilidades, Rituais, Biografia e Efeitos usam o conteúdo do sistema, em tema escuro. Tudo o que você já tem nelas continua igual.
+Inventário, Habilidades, Rituais, Biografia e Efeitos mantêm o conteúdo e o funcionamento do sistema, mas com a mesma direção de arte das perícias: títulos de seção em fita de cor, nomes em máquina de escrever, selos inclinados, barra de espaço em blocos e ícones com moldura. Tudo o que você já tem nelas continua igual.
 
 ### Janela
 
@@ -163,12 +167,13 @@ templates/skills.hbs     aba de perícias
 templates/tabs.hbs       navegação por abas
 styles/dossie.css        tema inteiro, aninhado em .op-dossie
 fonts/                   Anton, Bebas Neue, Special Elite
+textures/                texturas de fundo (PNG, geradas por script, sem arte de terceiros)
 lang/                    pt-BR e en
 ```
 
 - A ficha **herda** a ficha de agente do sistema, então só o que muda de aparência foi reescrito (cabeçalho, perícias, abas). O resto (itens, rituais, efeitos, arrastar e soltar) é do sistema.
 - O CSS fica sob `.system-ordemparanormal .application.ordemparanormal.actor.op-dossie` para ter prioridade sobre o CSS do sistema sem `!important` em todo lugar.
-- As abas reaproveitadas do sistema ficam escuras com `filter: invert(1) hue-rotate(180deg)`. É uma solução prática, não a mais elegante; se quiser refazer alguma aba com visual próprio, é só trocar o template da parte correspondente em `static PARTS`.
+- As abas reaproveitadas do sistema usam os templates dele, com CSS próprio por cima (bloco "Demais abas" em `styles/dossie.css`). Se um dia o sistema mudar o HTML dessas abas, é ali que se ajusta; para refazer uma aba do zero, troque o template da parte correspondente em `static PARTS`.
 - **Prévia:** as imagens deste README vêm de um gerador que roda a classe real da ficha e os templates reais fora do Foundry (simulação, não substitui testar no Foundry). Ele fica no repositório de trabalho do autor e é rodado antes de cada versão.
 - **Lançar uma versão nova:** crie uma release com tag `vX.Y.Z`. O fluxo em `.github/workflows/release.yml` atualiza o `module.json`, gera o `module.zip` e anexa os dois à release, e o link de instalação passa a entregar a versão nova.
 

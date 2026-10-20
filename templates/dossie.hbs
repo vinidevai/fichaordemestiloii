@@ -29,6 +29,18 @@
 				data-color="auto"
 				title="{{localize 'OPDOSSIE.Color.auto'}}"
 			><i class="fa-solid fa-rotate-left"></i></button>
+
+			<div class="op-textures" title="{{localize 'OPDOSSIE.Texture.title'}}">
+				{{#each textures}}
+					<button
+						type="button"
+						class="op-texbtn {{#if active}}on{{/if}}"
+						data-action="setTexture"
+						data-tex="{{id}}"
+						title="{{label}}"
+					></button>
+				{{/each}}
+			</div>
 		</div>
 	</details>
 

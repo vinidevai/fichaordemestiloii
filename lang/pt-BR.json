@@ -22,5 +22,11 @@
 	"OPDOSSIE.Degree.untrained": "Destreinado",
 	"OPDOSSIE.Degree.trained": "Treinado",
 	"OPDOSSIE.Degree.veteran": "Veterano",
-	"OPDOSSIE.Degree.expert": "Expert"
+	"OPDOSSIE.Degree.expert": "Expert",
+	"OPDOSSIE.Texture.title": "Textura de fundo",
+	"OPDOSSIE.Texture.tecido": "Tecido (padrão)",
+	"OPDOSSIE.Texture.concreto": "Concreto",
+	"OPDOSSIE.Texture.papel": "Papel velho",
+	"OPDOSSIE.Texture.liso": "Liso",
+	"OPDOSSIE.Texture.nevoa": "Névoa"
 }

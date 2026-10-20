@@ -35,13 +35,31 @@
 	--op-type: "Special Elite", "Courier New", monospace;
 	--op-body: "Warnock Pro", "Source Sans 3", Georgia, serif;
 
-	--op-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 -.14'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-	--op-grunge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='4' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -.5'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
 
+	--op-tex: url("../textures/tecido.png");
+	--op-tex: url("../textures/tecido.png");
 	color: var(--op-ink);
 	border: 0;
 	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px #000;
 }
+
+
+/* ---------- Texturas de fundo (escolhidas na paleta, por personagem) ---------- */
+
+&[data-op-texture="tecido"] { --op-tex: url("../textures/tecido.png"); }
+&[data-op-texture="concreto"] { --op-tex: url("../textures/concreto.png"); }
+&[data-op-texture="papel"] { --op-tex: url("../textures/papel.png"); }
+&[data-op-texture="liso"] { --op-tex: url("../textures/liso.png"); }
+&[data-op-texture="nevoa"] { --op-tex: url("../textures/nevoa.png"); }
+
+
+/* ---------- Texturas de fundo (escolhidas na paleta, por personagem) ---------- */
+
+&[data-op-texture="tecido"] { --op-tex: url("../textures/tecido.png"); }
+&[data-op-texture="concreto"] { --op-tex: url("../textures/concreto.png"); }
+&[data-op-texture="papel"] { --op-tex: url("../textures/papel.png"); }
+&[data-op-texture="liso"] { --op-tex: url("../textures/liso.png"); }
+&[data-op-texture="nevoa"] { --op-tex: url("../textures/nevoa.png"); }
 
 /* ---------- Janela ---------- */
 
@@ -74,11 +92,10 @@
 	color: var(--op-ink);
 	font-family: var(--op-body);
 	background:
-		radial-gradient(ellipse 70% 38% at 18% 0%, color-mix(in srgb, var(--op-accent) 20%, transparent), transparent 70%),
-		var(--op-grunge),
-		var(--op-noise),
+		radial-gradient(ellipse 75% 40% at 14% 0%, color-mix(in srgb, var(--op-accent) 15%, transparent), transparent 72%),
+		radial-gradient(ellipse 120% 100% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%),
+		var(--op-tex),
 		#0a0a0b !important;
-	background-blend-mode: normal, soft-light, soft-light, normal;
 }
 
 /* Moldura dupla "impressa": duas linhas tremidas com cantos cortados em lados opostos. */
@@ -189,7 +206,7 @@
 & .op-head {
 	position: relative;
 	flex: 0 0 auto;
-	padding: 18px 30px 4px;
+	padding: 18px 26px 4px;
 	container-type: inline-size;
 }
 
@@ -233,6 +250,9 @@
 	top: 32px;
 	right: 0;
 	display: flex;
+	flex-wrap: wrap;
+	width: max-content;
+	max-width: 240px;
 	gap: 6px;
 	padding: 8px;
 	background: #0c0c0d;
@@ -251,6 +271,31 @@
 	border-color: #fff !important;
 	filter: drop-shadow(0 0 3px #fff);
 }
+& .op-textures {
+	display: flex;
+	gap: 6px;
+	margin-top: 6px;
+	padding-top: 8px;
+	border-top: 1px solid var(--op-line);
+	width: 100%;
+}
+& .op-texbtn {
+	position: relative;
+	width: 34px;
+	height: 26px;
+	background-color: #111 !important;
+	background-size: 64px 64px !important;
+	border: 2px solid transparent !important;
+	filter: brightness(3.2);
+}
+& .op-texbtn.on {
+	border-color: #fff !important;
+}
+& .op-texbtn[data-tex="tecido"] { background-image: url("../textures/tecido.png") !important; }
+& .op-texbtn[data-tex="concreto"] { background-image: url("../textures/concreto.png") !important; }
+& .op-texbtn[data-tex="papel"] { background-image: url("../textures/papel.png") !important; }
+& .op-texbtn[data-tex="liso"] { background-image: url("../textures/liso.png") !important; }
+& .op-texbtn[data-tex="nevoa"] { background-image: url("../textures/nevoa.png") !important; }
 & .op-swatch--auto {
 	background: #2b2b2d !important;
 	color: var(--op-ink);
@@ -663,13 +708,16 @@
 	flex: 0 0 auto;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 4px 2px;
-	padding: 4px 26px 0;
+	gap: 2px;
+	margin: 0 26px;
+	padding: 4px 0 0;
 	border-bottom: 1px solid var(--op-line);
-	margin: 0 20px;
 }
 & .op-tab {
 	display: inline-flex;
+	flex: 1 1 0;
+	min-width: 84px;
+	justify-content: center;
 	align-items: center;
 	gap: 7px;
 	padding: 4px 10px 2px;
@@ -714,8 +762,8 @@
 	overflow-y: auto;
 	overflow-x: hidden;
 	/* o sistema força padding/margin 0 !important nas abas de inventário */
-	padding: 8px 30px 16px !important;
-	margin: 0 12px 10px 0 !important;
+	padding: 8px 18px 16px 26px !important;
+	margin: 0 8px 10px 0 !important;
 	scrollbar-width: thin;
 	scrollbar-color: var(--op-accent-dim) transparent;
 }
@@ -762,7 +810,7 @@
 	margin: 0;
 	padding: 0;
 	column-count: 2;
-	column-gap: 40px;
+	column-gap: 30px;
 }
 @container (max-width: 640px) {
 	& .op-skill-list {
@@ -787,7 +835,7 @@
 	font-size: 0.86rem;
 	letter-spacing: 0.04em;
 	text-transform: uppercase;
-	text-align: right;
+	text-align: left;
 	color: var(--op-ink);
 	text-decoration: none;
 	cursor: pointer;
@@ -899,26 +947,308 @@
 
 /* ==========================================================================
    Demais abas (inventário, habilidades, rituais, biografia, efeitos)
-   Usam os templates do sistema, que são pensados para fundo claro. Aqui o
-   conteúdo é invertido para o tema escuro e imagens/ícones voltam ao normal.
+   Os templates são os do sistema; aqui eles ganham a mesma direção de arte
+   do cabeçalho e das perícias: fitas de acento nos títulos, selos, tipografia
+   e linhas tracejadas. Prefixo "& .tab" para vencer o CSS do sistema.
    ========================================================================== */
 
-& .window-content > .tab:not(.op-skills).active {
-	filter: invert(1) hue-rotate(180deg);
+/* Base: tudo claro sobre fundo escuro (anula as cores escuras do sistema) */
+& :where(.window-content > .tab:not(.op-skills)) {
+	color: var(--op-ink);
+	font-family: var(--op-body);
 }
-/* O texto sem cor própria dessas abas herdaria o tom claro do tema e, invertido, ficaria escuro: volta ao escuro original do sistema. */
-& .window-content > .tab:not(.op-skills) {
-	color: #171717;
+& :where(.window-content > .tab:not(.op-skills)) :is(div, span, a, label, li, p, h1, h2, h3, h4, b, strong, small, em, i, th, td, button, ol, ul, header, section) {
+	color: inherit;
 }
-& .window-content > .tab:not(.op-skills) img,
-& .window-content > .tab:not(.op-skills) video {
-	filter: invert(1) hue-rotate(180deg);
+& .tab:not(.op-skills) :is(input, select, textarea) {
+	color: var(--op-ink) !important;
+	background: rgba(0, 0, 0, 0.4);
+	border: 1px solid var(--op-line);
+	border-radius: 0;
+	box-shadow: none;
 }
-& .window-content > .tab:not(.op-skills) .op-no-invert {
-	filter: invert(1) hue-rotate(180deg);
+& .tab:not(.op-skills) :is(input, select, textarea):focus {
+	border-color: var(--op-accent);
+	outline: none;
 }
-& .window-content > .tab:not(.op-skills) a:hover {
-	text-shadow: none;
+
+/* Painéis */
+& .tab :is(.inventory-category, .effects-section, .dossier-section, .resource-manager-box, .inventory-prestige-header, .inventory-ritual-header, .tactical-control-bar) {
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
+	border: 1px solid var(--op-line);
+	border-radius: 0;
+	box-shadow: none;
+}
+& .tab :is(.tactical-control-bar, .inventory-prestige-header, .inventory-ritual-header) {
+	border-left: 3px solid var(--op-accent);
+}
+
+/* Títulos de seção: fita de acento rasgada */
+& .tab :is(.inventory-list-header, .effects-header) {
+	background: var(--op-accent) !important;
+	border: 0 !important;
+	border-radius: 0;
+	color: #fff;
+	font-family: var(--op-label);
+	font-size: 0.95rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+	clip-path: polygon(0 10%, 0.6% 0, 18% 6%, 46% 0, 78% 5%, 100% 0, 99.4% 50%, 100% 100%, 72% 94%, 44% 100%, 16% 95%, 0 100%, 0.5% 52%);
+	padding-top: 5px;
+	padding-bottom: 3px;
+}
+& .tab :is(.inventory-list-header, .effects-header) i {
+	font-size: 0.85em;
+}
+& .tab :is(.inventory-prestige-header, .inventory-ritual-header, .tactical-control-bar) {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+& .tab .effects-header .effect-controls,
+& .tab .effects-header .effect-controls a {
+	white-space: nowrap;
+	flex: 0 0 auto;
+	font-size: 0.85em;
+}
+/* alinha os painéis com a barra de abas */
+& .tab :is(.inventory-list-container, .content-item, .effects-management) {
+	padding: 6px 0 0 0 !important;
+	margin: 0 !important;
+	width: 100%;
+}
+& .tab .inventory-footer-space :is(span, b, strong, div, small) {
+	color: var(--op-ink);
+}
+& .tab :is(.inventory-list-header, .effects-header) :is(span, div, a, i) {
+	color: #fff !important;
+}
+& .tab :is(.inventory-list-header, .effects-header) :is(.col-cost, .col-exec, .col-range, .col-target, .col-duration, .col-resist, .col-prop, .col-type, .col-category, .col-space, .col-quantity, .effect-source, .effect-duration) {
+	opacity: 0.8;
+	font-size: 0.9em;
+}
+& .tab .inventory-list-header .item-control:hover,
+& .tab .effects-header a:hover {
+	text-shadow: 0 0 6px #fff;
+}
+
+/* Linhas */
+& .tab :is(.item-row, .effect-item) {
+	background: transparent;
+	border: 0;
+	border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+	border-radius: 0;
+	box-shadow: none;
+}
+& .tab :is(.item-row, .effect-item):hover {
+	background: var(--op-accent-soft);
+}
+& .tab .item-row.is-active {
+	box-shadow: inset 3px 0 0 var(--op-accent);
+}
+& .tab :is(.item-name, .effect-name span) {
+	font-family: var(--op-type);
+	font-size: 0.9rem;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+	color: var(--op-ink);
+}
+& .tab :is(.effect-source, .effect-duration) {
+	font-family: var(--op-type);
+	font-size: 0.8rem;
+	color: var(--op-ink-dim);
+}
+
+/* Ícone do item: moldura de acento */
+& .tab .item-image img,
+& .tab .effect-image {
+	border: 2px solid var(--op-accent);
+	border-radius: 0;
+	background: #000;
+	box-shadow: none;
+}
+
+/* Selos de informação (alcance, custo, categoria...) */
+& .tab .badge-cat {
+	font-family: var(--op-type);
+	font-size: 0.72rem;
+	letter-spacing: 0.02em;
+	color: var(--op-ink);
+	background: var(--op-accent-deep);
+	border: 0;
+	border-radius: 0;
+	padding: 3px 10px;
+	clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%);
+}
+& .tab .badge-cat.highlight {
+	background: var(--op-accent);
+	color: #fff;
+}
+
+/* Botões de controle (editar, apagar, enviar ao chat) */
+& .tab :is(.item-btn, .item-control, .effect-control) {
+	color: var(--op-ink-dim);
+	background: transparent;
+	border: 0;
+}
+& .tab :is(.item-btn, .item-control, .effect-control):hover {
+	color: var(--op-accent);
+	background: transparent;
+}
+& .tab .item-btn.btn-delete:hover {
+	color: #ff5a4a;
+}
+& .tab .item-btn.is-active i,
+& .tab .fa-star {
+	color: var(--op-accent);
+}
+
+/* Quantidade (−/+) */
+& .tab .quantity-controller {
+	background: rgba(0, 0, 0, 0.35);
+	border: 1px solid var(--op-line);
+	border-radius: 0;
+}
+& .tab .quantity-controller :is(button, a) {
+	color: var(--op-ink-dim);
+	background: transparent;
+}
+& .tab .quantity-controller :is(button, a):hover {
+	color: var(--op-accent);
+}
+& .tab .quantity-controller input {
+	background: transparent;
+	border: 0;
+	font-family: var(--op-display);
+	text-align: center;
+}
+
+/* Patente, prestígio e limites por categoria */
+& .tab :is(.patent-box, .prestige-box) .label,
+& .tab .category-limits .section-title {
+	font-family: var(--op-label);
+	font-size: 1rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--op-accent);
+}
+& .tab :is(.patent-input, .prestige-input) {
+	font-family: var(--op-display);
+	text-align: center;
+}
+& .tab .limit-badge {
+	background: var(--op-accent-deep);
+	border: 0;
+	border-radius: 0;
+	clip-path: polygon(8% 0, 100% 0, 92% 100%, 0 100%);
+}
+& .tab .limit-badge label {
+	font-family: var(--op-label);
+	color: var(--op-accent);
+}
+& .tab .limit-badge input {
+	background: transparent;
+	border: 0;
+	font-family: var(--op-display);
+}
+
+/* Barra de espaço do inventário: blocos, como a vida */
+& .tab .progress-bar-container {
+	height: 10px;
+	background: #29292b;
+	border: 0;
+	border-radius: 0;
+	clip-path: polygon(1% 0, 100% 0, 99% 100%, 0 100%);
+}
+& .tab .progress-bar-container .progress-fill {
+	background: repeating-linear-gradient(90deg, #f3efe3 0 9px, transparent 9px 12px);
+	border-radius: 0;
+}
+& .tab .inventory-footer-space {
+	background: rgba(0, 0, 0, 0.35);
+	border-top: 1px solid var(--op-line);
+	font-family: var(--op-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+& .tab .inventory-footer-space :is(.is-overburdened, .is-overburdened *) {
+	color: #ff5a4a;
+}
+
+/* DT de ritual: losango de acento */
+& .tab .ritual-box {
+	background: transparent;
+	border: 0;
+}
+& .tab .ritual-box .label {
+	font-family: var(--op-label);
+	font-size: 1.1rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--op-ink);
+}
+& .tab .badge-ritual {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	background: var(--op-accent);
+	color: #fff;
+	border: 0;
+	border-radius: 0;
+	font-family: var(--op-display);
+	font-size: 1.4rem;
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+/* Gerenciar recursos (habilidades) */
+& .tab .toggle-btn {
+	font-family: var(--op-label);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--op-ink-dim);
+	background: transparent;
+	border: 1px solid var(--op-line);
+	border-radius: 0;
+}
+& .tab .toggle-btn:hover,
+& .tab .toggle-btn.is-active {
+	color: #fff;
+	background: var(--op-accent);
+	border-color: var(--op-accent);
+}
+
+/* Descrição expandida de item */
+& .tab :is(.item-description, .description-box, .description-container) {
+	background: rgba(0, 0, 0, 0.4);
+	border: 0;
+	border-left: 3px solid var(--op-accent);
+	border-radius: 0;
+	color: var(--op-ink);
+	font-family: var(--op-body);
+}
+
+/* Biografia: título em fita e texto legível */
+& .tab .dossier-section .inventory-list-header {
+	margin-bottom: 6px;
+}
+& .tab :is(.dossier-editor-container, .locked-content, .ProseMirror, .editor-content) {
+	color: var(--op-ink);
+	background: transparent;
+	font-family: var(--op-body);
+	line-height: 1.5;
+}
+& .tab :is(.dossier-editor-container, .locked-content) :is(p, li, ul, ol, span, h1, h2, h3, strong, em) {
+	color: var(--op-ink);
+}
+& .tab :is(.dossier-editor-container, .locked-content) a {
+	color: var(--op-accent);
+}
+
+/* Rolagem fina com a cor do acento */
+& .tab ::-webkit-scrollbar-thumb {
+	background: var(--op-accent-dim);
 }
 
 /* Janela estreita: encolhe o retrato, o nome e os atributos */

@@ -11,6 +11,9 @@ export const PALETTE = [
 	{ id: "bone", color: "#d8d2c0" },
 ];
 
+/** Texturas de fundo disponíveis (arquivos em /textures). A primeira é a padrão. */
+export const TEXTURES = ["tecido", "concreto", "papel", "liso", "nevoa"];
+
 /** Cor padrão pela classe do agente, quando o jogador não escolheu uma. */
 const CLASS_ACCENT = [
 	[/combat/i, "red"],
@@ -71,6 +74,7 @@ export function defineDossieSheet(Base) {
 				setResource: OrdemDossieSheet._onSetResource,
 				cycleDegree: OrdemDossieSheet._onCycleDegree,
 				setAccent: OrdemDossieSheet._onSetAccent,
+				setTexture: OrdemDossieSheet._onSetTexture,
 			},
 		};
 
@@ -105,6 +109,7 @@ export function defineDossieSheet(Base) {
 		async _onRender(context, options) {
 			await super._onRender(context, options);
 			this.element.style.setProperty("--op-accent", context.accent.color);
+			this.element.dataset.opTexture = context.texture;
 
 			// A paleta fica aberta enquanto o jogador experimenta cores (cada troca re-renderiza a ficha).
 			const palette = this.element.querySelector(".op-palette");
@@ -150,6 +155,13 @@ export function defineDossieSheet(Base) {
 				...p,
 				label: game.i18n.localize(`OPDOSSIE.Color.${p.id}`),
 				active: p.color === context.accent.color,
+			}));
+			const savedTexture = this.actor.getFlag(MODULE_ID, "texture");
+			context.texture = TEXTURES.includes(savedTexture) ? savedTexture : TEXTURES[0];
+			context.textures = TEXTURES.map((id) => ({
+				id,
+				label: game.i18n.localize(`OPDOSSIE.Texture.${id}`),
+				active: id === context.texture,
 			}));
 			context.detailSlots = ["class", "origin", "path"].map((type) => ({
 				type,
@@ -269,6 +281,15 @@ export function defineDossieSheet(Base) {
 			const { color } = target.dataset;
 			if (color === "auto") await this.actor.unsetFlag(MODULE_ID, "accent");
 			else await this.actor.setFlag(MODULE_ID, "accent", color);
+		}
+
+		/** Guarda a textura de fundo da ficha (por personagem). */
+		static async _onSetTexture(event, target) {
+			event.preventDefault();
+			if (!this.actor.isOwner) return;
+			const { tex } = target.dataset;
+			if (!TEXTURES.includes(tex)) return;
+			await this.actor.setFlag(MODULE_ID, "texture", tex);
 		}
 	};
 }
