@@ -1,0 +1,949 @@
+/* ==========================================================================
+   Ordem Paranormal — Ficha Dossiê (estilo Playtest)
+   Tudo fica aninhado em .op-dossie (com o prefixo do sistema, para vencer o CSS dele)
+   e não vaza para outras janelas do Foundry.
+   Fontes: Anton e Bebas Neue (OFL), Special Elite (Apache 2.0) — ver /fonts.
+   ========================================================================== */
+
+@font-face {
+	font-family: "Anton";
+	src: url("../fonts/Anton-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+@font-face {
+	font-family: "Bebas Neue";
+	src: url("../fonts/BebasNeue-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+@font-face {
+	font-family: "Special Elite";
+	src: url("../fonts/SpecialElite-Regular.ttf") format("truetype");
+	font-display: swap;
+}
+
+.system-ordemparanormal .application.ordemparanormal.actor.op-dossie {
+& {
+	--op-accent: #d6391f;
+	--op-accent-dim: color-mix(in srgb, var(--op-accent) 55%, #000);
+	--op-accent-deep: color-mix(in srgb, var(--op-accent) 28%, #121213);
+	--op-accent-soft: color-mix(in srgb, var(--op-accent) 16%, transparent);
+	--op-ink: #ece8dc;
+	--op-ink-dim: #a29e91;
+	--op-line: rgba(255, 255, 255, 0.09);
+	--op-display: "Anton", "Bebas Neue", Impact, sans-serif;
+	--op-label: "Bebas Neue", "Anton", Impact, sans-serif;
+	--op-type: "Special Elite", "Courier New", monospace;
+	--op-body: "Warnock Pro", "Source Sans 3", Georgia, serif;
+
+	--op-noise: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 -.14'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+	--op-grunge: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='4' seed='4' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.1 -.5'/></filter><rect width='100%' height='100%' filter='url(%23g)'/></svg>");
+
+	color: var(--op-ink);
+	border: 0;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px #000;
+}
+
+/* ---------- Janela ---------- */
+
+& .window-header {
+	background: #050505;
+	border-bottom: 1px solid var(--op-accent-dim);
+	color: var(--op-ink);
+	--button-text-color: var(--op-ink);
+}
+& .window-header .window-title {
+	font-family: var(--op-label);
+	font-size: 1.15rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+& .window-header button,
+& .window-header a {
+	color: var(--op-ink-dim);
+}
+& .window-header button:hover,
+& .window-header a:hover {
+	color: var(--op-accent);
+}
+
+& .window-content {
+	position: relative;
+	padding: 0;
+	gap: 0;
+	overflow: hidden;
+	color: var(--op-ink);
+	font-family: var(--op-body);
+	background:
+		radial-gradient(ellipse 70% 38% at 18% 0%, color-mix(in srgb, var(--op-accent) 20%, transparent), transparent 70%),
+		var(--op-grunge),
+		var(--op-noise),
+		#0a0a0b !important;
+	background-blend-mode: normal, soft-light, soft-light, normal;
+}
+
+/* Moldura dupla "impressa": duas linhas tremidas com cantos cortados em lados opostos. */
+& .window-content::before,
+& .window-content::after {
+	content: "";
+	position: absolute;
+	pointer-events: none;
+	z-index: 6;
+	border-style: solid;
+	border-color: var(--op-accent);
+	filter: url(#op-rough);
+}
+& .window-content::before {
+	inset: 7px;
+	border-width: 2px;
+	clip-path: polygon(38px 0, 100% 0, 100% 100%, 0 100%, 0 38px);
+}
+& .window-content::after {
+	inset: 14px;
+	border-width: 1.5px;
+	opacity: 0.8;
+	clip-path: polygon(0 0, 100% 0, 100% calc(100% - 38px), calc(100% - 38px) 100%, 0 100%);
+}
+
+& .op-defs {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+/* ---------- Reset de controles (o Foundry estiliza input/button globalmente) ---------- */
+
+& :where(button:not(.header-control)) {
+	appearance: none;
+	background: none;
+	border: 0;
+	box-shadow: none;
+	padding: 0;
+	margin: 0;
+	min-height: 0;
+	height: auto;
+	width: auto;
+	line-height: 1;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+}
+& :where(input[type="text"], input[type="number"]) {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	height: auto;
+	padding: 0;
+	color: inherit;
+	font: inherit;
+	outline: none;
+}
+& input[type="number"]::-webkit-inner-spin-button,
+& input[type="number"]::-webkit-outer-spin-button {
+	appearance: none;
+	margin: 0;
+}
+& input[type="number"] {
+	appearance: textfield;
+	-moz-appearance: textfield;
+}
+& input:disabled {
+	opacity: 0.55;
+	cursor: default;
+}
+& input::placeholder {
+	color: color-mix(in srgb, var(--op-ink) 30%, transparent);
+	text-shadow: none;
+}
+& .rollable:hover,
+& .rollable:focus {
+	color: var(--op-accent);
+	text-shadow: none;
+}
+
+/* ---------- "Fita" (etiqueta de papel rasgado) ---------- */
+
+& .op-tape {
+	display: inline-block;
+	font-family: var(--op-label);
+	font-size: 1.7rem;
+	line-height: 1;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: #fff;
+	background: var(--op-accent);
+	padding: 0.22em 0.7em 0.1em;
+	transform: rotate(-1.6deg);
+	clip-path: polygon(0 12%, 3% 0, 22% 6%, 47% 0, 76% 5%, 100% 0, 98% 48%, 100% 100%, 71% 94%, 44% 100%, 19% 95%, 0 100%, 2% 52%);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+& .op-tape--big {
+	font-size: 2rem;
+	padding: 0.2em 0.9em 0.08em;
+	transform: rotate(-3deg);
+}
+
+/* ---------- Cabeçalho ---------- */
+
+& .op-head {
+	position: relative;
+	flex: 0 0 auto;
+	padding: 28px 34px 10px;
+	container-type: inline-size;
+}
+
+& .op-head-grid {
+	display: grid;
+	grid-template-columns: 188px minmax(0, 1fr);
+	gap: 0 26px;
+	align-items: start;
+}
+
+/* Paleta */
+& .op-palette {
+	position: absolute;
+	top: 22px;
+	right: 30px;
+	z-index: 8;
+}
+& .op-palette summary {
+	list-style: none;
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	background: rgba(0, 0, 0, 0.55);
+	border: 1px solid var(--op-line);
+	color: var(--op-ink-dim);
+	font-size: 0.78rem;
+	cursor: pointer;
+}
+& .op-palette summary::-webkit-details-marker {
+	display: none;
+}
+& .op-palette summary:hover,
+& .op-palette[open] summary {
+	color: var(--op-accent);
+	border-color: var(--op-accent);
+}
+& .op-swatches {
+	position: absolute;
+	top: 32px;
+	right: 0;
+	display: flex;
+	gap: 6px;
+	padding: 8px;
+	background: #0c0c0d;
+	border: 1px solid var(--op-line);
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+}
+& .op-swatch {
+	width: 20px;
+	height: 20px;
+	background: var(--c, #444) !important;
+	border: 2px solid transparent !important;
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+& .op-swatch.on {
+	outline: 0;
+	border-color: #fff !important;
+	filter: drop-shadow(0 0 3px #fff);
+}
+& .op-swatch--auto {
+	background: #2b2b2d !important;
+	color: var(--op-ink);
+	font-size: 0.6rem;
+	display: grid;
+	place-items: center;
+	clip-path: none;
+	border-radius: 50%;
+	border: 1px solid var(--op-line) !important;
+}
+
+/* Retrato */
+& .op-portrait-col {
+	position: relative;
+}
+& .op-portrait {
+	position: relative;
+	aspect-ratio: 3 / 4;
+	padding: 4px;
+	background: #000;
+	border: 2px solid var(--op-accent);
+	box-shadow: 0 0 0 4px #000, 0 0 0 5px var(--op-accent-dim), 0 8px 18px rgba(0, 0, 0, 0.6);
+	cursor: zoom-in;
+	overflow: hidden;
+	transform: rotate(-0.8deg);
+}
+& .op-portrait img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+	object-fit: cover;
+	object-position: 50% 14%;
+	filter: contrast(1.06) saturate(0.95);
+	transition: transform 0.4s ease, filter 0.3s ease;
+}
+& .op-portrait:hover img {
+	transform: scale(1.04);
+	filter: contrast(1.1) saturate(1.05) brightness(1.06);
+}
+& .op-zoom {
+	position: absolute;
+	left: 4px;
+	right: 4px;
+	bottom: 4px;
+	padding: 18px 6px 6px;
+	font-family: var(--op-label);
+	font-size: 1.05rem;
+	letter-spacing: 0.08em;
+	text-align: center;
+	text-transform: uppercase;
+	color: #fff;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+& .op-portrait:hover .op-zoom {
+	opacity: 1;
+}
+& .op-portrait-edit {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	display: grid;
+	place-items: center;
+	width: 26px;
+	height: 26px;
+	background: rgba(0, 0, 0, 0.7) !important;
+	border: 1px solid var(--op-line) !important;
+	color: var(--op-ink-dim);
+	font-size: 0.72rem;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	z-index: 2;
+}
+& .op-portrait-col:hover .op-portrait-edit {
+	opacity: 1;
+}
+& .op-portrait-edit:hover {
+	color: var(--op-accent);
+	border-color: var(--op-accent) !important;
+}
+
+/* Nome */
+& .op-main {
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+& .op-title {
+	padding-right: 34px;
+	border-bottom: 1px solid color-mix(in srgb, var(--op-accent) 65%, transparent);
+}
+& input.op-name {
+	display: block;
+	width: 100%;
+	font-family: var(--op-display);
+	font-size: clamp(2.6rem, 6.4vw, 4.4rem);
+	line-height: 1.04;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	color: var(--op-accent);
+	text-shadow: 0 2px 0 rgba(0, 0, 0, 0.6), 0 0 22px color-mix(in srgb, var(--op-accent) 28%, transparent);
+	text-overflow: ellipsis;
+}
+& input.op-name:focus {
+	border-bottom: 0;
+	text-shadow: 0 0 26px color-mix(in srgb, var(--op-accent) 55%, transparent);
+}
+
+/* Classe · Origem · Trilha · Nível/NEX */
+& .op-ident {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+}
+& .op-tags {
+	display: flex;
+	align-items: center;
+	flex: 1 1 0;
+	flex-wrap: wrap;
+	gap: 6px 16px;
+	min-width: 0;
+}
+& .op-tag {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-family: var(--op-label);
+	font-size: 1.35rem;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: var(--op-ink);
+	min-width: 0;
+}
+& .op-tag a {
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+& .op-tag-name {
+	max-width: 24ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+& .op-tag:not(.op-tag--class)::before {
+	content: "";
+	width: 6px;
+	height: 6px;
+	background: var(--op-accent);
+	border-radius: 50%;
+	flex: none;
+}
+& .op-tag--class {
+	color: #fff;
+	font-size: 1.85rem;
+	background: var(--op-accent);
+	padding: 0.2em 0.65em 0.08em;
+	transform: rotate(-1.4deg);
+	clip-path: polygon(0 14%, 3% 0, 28% 5%, 60% 0, 100% 6%, 98% 50%, 100% 100%, 72% 95%, 40% 100%, 12% 95%, 0 100%, 2% 52%);
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+& .op-tag-del {
+	display: none;
+	font-size: 0.7em;
+	opacity: 0.7;
+}
+& .op-tag:hover .op-tag-del {
+	display: inline;
+}
+& .op-tag-del:hover {
+	opacity: 1;
+	color: #fff;
+}
+& .op-tag--empty {
+	font-size: 1.05rem;
+	color: var(--op-ink-dim);
+	border: 1px dashed var(--op-line);
+	padding: 0.18em 0.7em 0.05em;
+	cursor: pointer;
+	transform: none;
+	clip-path: none;
+	background: none;
+	text-shadow: none;
+}
+& .op-tag--empty::before {
+	display: none;
+}
+& .op-tag--empty:hover {
+	color: var(--op-accent);
+	border-color: var(--op-accent);
+}
+
+& .op-level {
+	display: flex;
+	flex: none;
+	gap: 12px;
+	align-items: center;
+}
+& .op-level-cell {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+}
+& .op-level-cell span {
+	font-family: var(--op-label);
+	font-size: 1.15rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--op-ink-dim);
+}
+& .op-level-cell input {
+	width: 62px;
+	height: 44px !important;
+	text-align: center;
+	font-family: var(--op-display);
+	font-size: 2rem;
+	color: #fff;
+	background: var(--op-accent) !important;
+	clip-path: polygon(0 10%, 5% 0, 38% 6%, 70% 0, 100% 8%, 97% 52%, 100% 100%, 66% 94%, 34% 100%, 6% 94%, 0 100%, 3% 50%);
+}
+
+/* ---------- Recursos ---------- */
+
+& .op-vitals {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+	gap: 12px 26px;
+	margin-top: 2px;
+}
+& .op-vital-top {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 7px;
+}
+& .op-vital .op-tape {
+	font-size: 1.45rem;
+}
+& .op-vital-nums {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 3px;
+	font-family: var(--op-display);
+	font-size: 1.7rem;
+	line-height: 1;
+}
+& input.op-num {
+	width: 3.1ch;
+	text-align: right;
+	color: #fff;
+	border-bottom: 1px solid transparent;
+}
+& input.op-num--max {
+	text-align: left;
+	color: var(--op-ink-dim);
+}
+& input.op-num:focus {
+	border-bottom-color: var(--op-accent);
+}
+& .op-slash {
+	color: var(--op-accent);
+}
+& .op-per {
+	margin-left: auto;
+	font-family: var(--op-type);
+	font-size: 0.72rem;
+	color: var(--op-ink-dim);
+	border: 1px solid var(--op-line);
+	padding: 1px 6px;
+}
+
+/* Blocos: cada ponto é um quadradinho clicável */
+& .op-blocks {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 3px;
+}
+& .op-block {
+	flex: 1 0 15px;
+	max-width: 30px;
+	height: 14px !important;
+	background: #29292b !important;
+	clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+	transition: background 0.15s ease, transform 0.1s ease;
+}
+& .op-block.on {
+	background: #f3efe3 !important;
+}
+& .op-vital--PV .op-block.on {
+	background: #f3efe3 !important;
+	box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--op-accent) 45%, #f3efe3);
+}
+& .op-block:hover {
+	background: var(--op-accent) !important;
+	transform: translateY(-1px);
+}
+
+/* Tira contínua, quando o máximo é grande demais para blocos */
+& .op-strip {
+	height: 14px;
+	background: #29292b;
+	clip-path: polygon(1% 0, 100% 0, 99% 100%, 0 100%);
+}
+& .op-strip i {
+	display: block;
+	height: 100%;
+	background: repeating-linear-gradient(90deg, #f3efe3 0 9px, transparent 9px 12px);
+}
+
+/* ---------- Atributos e valores derivados ---------- */
+
+& .op-attrs-wrap {
+	position: relative;
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr);
+	gap: 8px 22px;
+	align-items: center;
+	margin-top: 16px;
+	padding-top: 14px;
+	border-top: 1px solid var(--op-line);
+}
+& .op-attrs-wrap > .op-tape {
+	grid-row: span 2;
+	align-self: center;
+	margin-left: -4px;
+}
+& .op-attrs {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(0, 1fr));
+	gap: 8px;
+}
+& .op-attr {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+& .op-attr-name {
+	font-family: var(--op-display);
+	font-size: 1.25rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--op-ink);
+	line-height: 1.1;
+}
+& .op-badge {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 60px;
+	height: 60px;
+	background: var(--op-accent);
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+	font-family: var(--op-display);
+	color: #fff;
+}
+& .op-badge input {
+	width: 100%;
+	height: 100% !important;
+	text-align: center;
+	font-family: var(--op-display);
+	font-size: 1.85rem;
+	color: #fff;
+}
+& .op-badge input:focus {
+	background: rgba(0, 0, 0, 0.25) !important;
+}
+
+& .op-stats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 22px;
+	justify-content: center;
+}
+& .op-stat {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 7px;
+}
+& .op-stat span {
+	font-family: var(--op-label);
+	font-size: 1.05rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--op-ink-dim);
+}
+& .op-stat b {
+	font-family: var(--op-display);
+	font-size: 1.45rem;
+	font-weight: 400;
+	color: #fff;
+}
+& .op-stat small {
+	font-size: 0.7em;
+	margin-left: 1px;
+	color: var(--op-ink-dim);
+}
+
+/* ---------- Abas ---------- */
+
+& .op-tabs {
+	position: relative;
+	z-index: 2;
+	flex: 0 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 2px;
+	padding: 8px 30px 0;
+	border-bottom: 1px solid var(--op-line);
+	margin: 0 20px;
+}
+& .op-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 6px 11px 3px;
+	font-family: var(--op-label);
+	font-size: 1.2rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--op-ink-dim);
+	text-decoration: none;
+	cursor: pointer;
+	border-bottom: 3px solid transparent;
+	transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+& .op-tab i {
+	font-size: 0.8em;
+	opacity: 0.8;
+}
+& .op-tab:hover {
+	color: var(--op-ink);
+	background: var(--op-accent-soft);
+}
+& .op-tab.active {
+	color: #fff;
+	border-bottom-color: var(--op-accent);
+	background: linear-gradient(transparent, var(--op-accent-soft));
+}
+& .op-tab.active i {
+	color: var(--op-accent);
+	opacity: 1;
+}
+
+/* Conteúdo das abas: só a aba ativa aparece e ela rola dentro da janela */
+& .window-content > .tab {
+	display: none !important;
+}
+& .window-content > .tab.active {
+	display: flex !important;
+	flex-direction: column;
+	flex: 1 1 0;
+	height: auto;
+	min-height: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+	/* o sistema força padding/margin 0 !important nas abas de inventário */
+	padding: 16px 34px 30px !important;
+	margin: 0 14px 14px 0 !important;
+	scrollbar-width: thin;
+	scrollbar-color: var(--op-accent-dim) transparent;
+}
+
+/* ---------- Perícias ---------- */
+
+& .op-skills {
+	container-type: inline-size;
+}
+
+& .op-legend {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 18px;
+	margin-bottom: 12px;
+	font-family: var(--op-type);
+	font-size: 0.74rem;
+	color: var(--op-ink-dim);
+}
+& .op-legend-title {
+	font-family: var(--op-label);
+	font-size: 1.05rem;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--op-accent);
+}
+& .op-legend-item {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+& .op-legend-item small {
+	color: var(--op-ink);
+}
+& .op-legend .op-seal {
+	width: 15px;
+	height: 14px;
+	cursor: default;
+}
+
+& .op-skill-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	column-count: 2;
+	column-gap: 40px;
+}
+@container (max-width: 640px) {
+	& .op-skill-list {
+		column-count: 1;
+	}
+}
+& .op-skill {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 42px 12px auto 38px;
+	align-items: center;
+	gap: 8px;
+	padding: 3px 0;
+	break-inside: avoid;
+	border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
+}
+& .op-skill:has(.op-skill-name--free) {
+	grid-template-columns: minmax(0, 1fr) 24px 42px 12px auto 38px;
+}
+& .op-skill-name {
+	font-family: var(--op-type);
+	font-size: 0.98rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	text-align: right;
+	color: var(--op-ink);
+	text-decoration: none;
+	cursor: pointer;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+& .op-skill.is-trained .op-skill-name {
+	color: #fff;
+}
+& input.op-skill-name--free {
+	border-bottom: 1px dashed var(--op-line);
+	cursor: text;
+}
+& .op-skill-roll {
+	color: var(--op-ink-dim);
+	font-size: 0.8rem;
+}
+& .op-skill-roll:hover {
+	color: var(--op-accent);
+}
+
+/* Selo de treinamento: forma = grau; número = bônus total */
+& .op-seal {
+	position: relative;
+	display: inline-grid;
+	place-items: center;
+	width: 42px;
+	height: 38px;
+	flex: none;
+	background: var(--op-accent-deep) !important;
+	color: var(--op-ink-dim);
+	font-family: var(--op-display);
+	font-size: 1.05rem;
+	line-height: 1;
+	transition: filter 0.15s ease;
+}
+& .op-skill.is-trained .op-seal {
+	background: var(--op-accent) !important;
+	color: #fff;
+}
+& .op-seal:hover {
+	filter: brightness(1.3);
+}
+& .op-seal--tri {
+	clip-path: polygon(50% 0, 100% 100%, 0 100%);
+	place-items: end center;
+	height: 40px;
+	padding-bottom: 3px !important;
+	font-size: 0.82rem;
+}
+& .op-seal--sq {
+	clip-path: polygon(4% 4%, 96% 0, 100% 96%, 0 100%);
+}
+& .op-seal--dia {
+	clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+& .op-seal--hex {
+	clip-path: polygon(24% 3%, 76% 3%, 100% 50%, 76% 97%, 24% 97%, 0 50%);
+}
+& .op-legend .op-seal {
+	background: var(--op-accent) !important;
+}
+
+& .op-plus {
+	text-align: center;
+	font-family: var(--op-type);
+	color: var(--op-ink-dim);
+}
+
+& .op-attr-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	min-width: 62px;
+}
+& .op-badge--sm {
+	width: 30px;
+	height: 30px;
+	background: var(--op-accent-deep);
+	font-size: 1rem;
+	flex: none;
+}
+& .op-badge--sm span {
+	font-family: var(--op-display);
+	font-size: 1rem;
+	color: #fff;
+}
+& .op-attr-chip em {
+	font-family: var(--op-type);
+	font-style: normal;
+	font-size: 0.72rem;
+	letter-spacing: 0.04em;
+	color: var(--op-accent);
+}
+
+& input.op-mod {
+	width: 38px;
+	text-align: center;
+	font-family: var(--op-type);
+	font-size: 0.8rem;
+	color: var(--op-ink-dim);
+	border-bottom: 1px dotted var(--op-line);
+}
+& input.op-mod:focus {
+	color: #fff;
+	border-bottom-color: var(--op-accent);
+}
+
+/* ==========================================================================
+   Demais abas (inventário, habilidades, rituais, biografia, efeitos)
+   Usam os templates do sistema, que são pensados para fundo claro. Aqui o
+   conteúdo é invertido para o tema escuro e imagens/ícones voltam ao normal.
+   ========================================================================== */
+
+& .window-content > .tab:not(.op-skills).active {
+	filter: invert(1) hue-rotate(180deg);
+}
+& .window-content > .tab:not(.op-skills) img,
+& .window-content > .tab:not(.op-skills) video {
+	filter: invert(1) hue-rotate(180deg);
+}
+& .window-content > .tab:not(.op-skills) .op-no-invert {
+	filter: invert(1) hue-rotate(180deg);
+}
+& .window-content > .tab:not(.op-skills) a:hover {
+	text-shadow: none;
+}
+
+/* Janela estreita: encolhe o retrato, o nome e os atributos */
+@container (max-width: 700px) {
+	& .op-head-grid {
+		grid-template-columns: 148px minmax(0, 1fr);
+		gap: 0 18px;
+	}
+	& input.op-name {
+		font-size: 2.7rem;
+	}
+	& .op-tag--class {
+		font-size: 1.55rem;
+	}
+	& .op-attrs-wrap {
+		grid-template-columns: 1fr;
+	}
+	& .op-attrs-wrap > .op-tape {
+		grid-row: auto;
+		justify-self: start;
+		font-size: 1.6rem;
+	}
+	& .op-attr-name {
+		font-size: 1.02rem;
+		letter-spacing: 0.02em;
+	}
+	& .op-attr .op-badge {
+		width: 50px;
+		height: 50px;
+	}
+	& .op-attr .op-badge input {
+		font-size: 1.55rem;
+	}
+}
+}

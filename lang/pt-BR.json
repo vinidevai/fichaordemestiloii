@@ -1,0 +1,22 @@
+{
+	"OPDOSSIE.SheetLabel": "Ordem Paranormal — Dossiê (estilo Playtest)",
+	"OPDOSSIE.ViewFull": "Ver imagem inteira",
+	"OPDOSSIE.ChangeImage": "Trocar imagem",
+	"OPDOSSIE.AccentColor": "Cor de destaque da ficha",
+	"OPDOSSIE.Color.red": "Vermelho",
+	"OPDOSSIE.Color.blue": "Azul",
+	"OPDOSSIE.Color.green": "Verde",
+	"OPDOSSIE.Color.amber": "Âmbar",
+	"OPDOSSIE.Color.purple": "Roxo",
+	"OPDOSSIE.Color.bone": "Osso",
+	"OPDOSSIE.Color.auto": "Automática (pela classe)",
+	"OPDOSSIE.Attributes": "Atributos",
+	"OPDOSSIE.RollAttribute": "Rolar teste de atributo",
+	"OPDOSSIE.RitualDT": "DT Ritual",
+	"OPDOSSIE.PerRound": "por rodada",
+	"OPDOSSIE.LegendTitle": "Selos",
+	"OPDOSSIE.RollSkill": "Clique para rolar · botão direito abre o livro de regras",
+	"OPDOSSIE.CycleHint": "clique para mudar o treinamento",
+	"OPDOSSIE.AttrDice": "Atributo base (dados rolados)",
+	"OPDOSSIE.ModHint": "Bônus extra da perícia"
+}

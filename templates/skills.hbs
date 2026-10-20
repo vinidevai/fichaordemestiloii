@@ -1,0 +1,68 @@
+<section class="tab op-skills {{tab.cssClass}}" data-tab="skills" data-group="primary">
+
+	<div class="op-legend">
+		<span class="op-legend-title">{{localize "OPDOSSIE.LegendTitle"}}</span>
+		<span class="op-legend-item"><i class="op-seal op-seal--tri"></i>{{localize "op.degreeTrainingChoices.dest"}} <small>+0</small></span>
+		<span class="op-legend-item"><i class="op-seal op-seal--sq"></i>{{localize "op.degreeTrainingChoices.trei"}} <small>+5</small></span>
+		<span class="op-legend-item"><i class="op-seal op-seal--dia"></i>{{localize "op.degreeTrainingChoices.vet"}} <small>+10</small></span>
+		<span class="op-legend-item"><i class="op-seal op-seal--hex"></i>{{localize "op.degreeTrainingChoices.expe"}} <small>+15</small></span>
+	</div>
+
+	<ul class="op-skill-list">
+		{{#each skillRows}}
+			<li class="op-skill {{#if trained}}is-trained{{/if}}" data-key="{{key}}">
+
+				{{! Nome da perícia: clique rola o teste, botão direito abre o livro de regras }}
+				{{#if isFree}}
+					<input
+						type="text"
+						class="op-skill-name op-skill-name--free"
+						name="system.skills.freeSkill.name"
+						value="{{name}}"
+						placeholder="{{localize 'op.skill.freeSkill'}}"
+						data-type="String"
+					/>
+					<button
+						type="button"
+						class="op-skill-roll"
+						data-action="onRollSkillCheck"
+						data-label="{{label}}"
+						title="{{localize 'OPDOSSIE.RollSkill'}}"
+					><i class="fa-solid fa-dice-d20"></i></button>
+				{{else}}
+					<a
+						class="op-skill-name rollable compendium-event-contextmenu"
+						data-action="onRollSkillCheck"
+						data-label="{{label}}"
+						title="{{localize 'OPDOSSIE.RollSkill'}}"
+					>{{label}}</a>
+				{{/if}}
+
+				{{! Selo de treinamento: o formato indica o grau, o número é o bônus total }}
+				<button
+					type="button"
+					class="op-seal op-seal--{{shape}}"
+					data-action="cycleDegree"
+					title="{{degreeTip}} — {{localize 'OPDOSSIE.CycleHint'}}"
+				><span>{{total}}</span></button>
+
+				<span class="op-plus">+</span>
+
+				{{! Atributo base: dados rolados }}
+				<span class="op-attr-chip" title="{{localize 'OPDOSSIE.AttrDice'}}">
+					<b class="op-badge op-badge--dia op-badge--sm"><span>{{attrValue}}</span></b>
+					<em>{{attrAbv}}</em>
+				</span>
+
+				<input
+					type="number"
+					class="op-mod"
+					name="system.skills.{{key}}.mod"
+					value="{{mod}}"
+					placeholder="0"
+					title="{{localize 'OPDOSSIE.ModHint'}}"
+				/>
+			</li>
+		{{/each}}
+	</ul>
+</section>

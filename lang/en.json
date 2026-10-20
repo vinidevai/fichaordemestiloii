@@ -1,0 +1,22 @@
+{
+	"OPDOSSIE.SheetLabel": "Ordem Paranormal — Dossier (Playtest style)",
+	"OPDOSSIE.ViewFull": "View full image",
+	"OPDOSSIE.ChangeImage": "Change image",
+	"OPDOSSIE.AccentColor": "Sheet accent color",
+	"OPDOSSIE.Color.red": "Red",
+	"OPDOSSIE.Color.blue": "Blue",
+	"OPDOSSIE.Color.green": "Green",
+	"OPDOSSIE.Color.amber": "Amber",
+	"OPDOSSIE.Color.purple": "Purple",
+	"OPDOSSIE.Color.bone": "Bone",
+	"OPDOSSIE.Color.auto": "Automatic (by class)",
+	"OPDOSSIE.Attributes": "Attributes",
+	"OPDOSSIE.RollAttribute": "Roll attribute test",
+	"OPDOSSIE.RitualDT": "Ritual DT",
+	"OPDOSSIE.PerRound": "per round",
+	"OPDOSSIE.LegendTitle": "Seals",
+	"OPDOSSIE.RollSkill": "Click to roll · right-click opens the rulebook",
+	"OPDOSSIE.CycleHint": "click to change training",
+	"OPDOSSIE.AttrDice": "Base attribute (dice rolled)",
+	"OPDOSSIE.ModHint": "Extra skill bonus"
+}

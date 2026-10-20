@@ -1,0 +1,36 @@
+name: Release
+
+# Ao publicar uma release (ex.: tag v1.1.0) este fluxo:
+#  - grava a versão da tag e a URL do zip em module.json
+#  - gera o module.zip
+#  - anexa module.json e module.zip à release
+# É isso que faz o link "latest/download/module.json" do README sempre apontar para a versão mais nova.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Atualiza module.json
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          jq --arg v "$VERSION" \
+             --arg dl "https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/module.zip" \
+             '.version = $v | .download = $dl' module.json > module.tmp
+          mv module.tmp module.json
+
+      - name: Empacota
+        run: zip -r module.zip module.json LICENSE README.md scripts styles templates lang fonts
+
+      - name: Anexa à release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "$GITHUB_REF_NAME" module.json module.zip --clobber

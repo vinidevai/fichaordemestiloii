@@ -1,0 +1,175 @@
+{{! Cabeçalho do dossiê: retrato, identificação, recursos e atributos }}
+<header class="op-head">
+	{{! Filtro que "desgasta" a moldura (tremida, como impressa). Fica fora do fluxo. }}
+	<svg class="op-defs" width="0" height="0" aria-hidden="true" focusable="false">
+		<filter id="op-rough" x="-3%" y="-3%" width="106%" height="106%">
+			<feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="7" result="noise" />
+			<feDisplacementMap in="SourceGraphic" in2="noise" scale="3.4" xChannelSelector="R" yChannelSelector="G" />
+		</filter>
+	</svg>
+
+	{{! Paleta de cor de destaque }}
+	<details class="op-palette">
+		<summary title="{{localize 'OPDOSSIE.AccentColor'}}"><i class="fa-solid fa-palette"></i></summary>
+		<div class="op-swatches">
+			{{#each palette}}
+				<button
+					type="button"
+					class="op-swatch {{#if active}}on{{/if}}"
+					style="--c: {{color}}"
+					data-action="setAccent"
+					data-color="{{color}}"
+					title="{{label}}"
+				></button>
+			{{/each}}
+			<button
+				type="button"
+				class="op-swatch op-swatch--auto"
+				data-action="setAccent"
+				data-color="auto"
+				title="{{localize 'OPDOSSIE.Color.auto'}}"
+			><i class="fa-solid fa-rotate-left"></i></button>
+		</div>
+	</details>
+
+	<div class="op-head-grid">
+
+		{{! ---------- Retrato (recorte do topo; clique abre a imagem inteira) ---------- }}
+		<div class="op-portrait-col">
+			<div class="op-portrait" data-action="showPortrait" title="{{localize 'OPDOSSIE.ViewFull'}}">
+				<img src="{{portrait.src}}" alt="{{portrait.name}}" />
+				<span class="op-zoom"><i class="fa-solid fa-magnifying-glass-plus"></i> {{localize "OPDOSSIE.ViewFull"}}</span>
+			</div>
+			{{#if editable}}
+				<button
+					type="button"
+					class="op-portrait-edit"
+					data-action="onEditImage"
+					data-edit="img"
+					title="{{localize 'OPDOSSIE.ChangeImage'}}"
+				><i class="fa-solid fa-pen"></i></button>
+			{{/if}}
+		</div>
+
+		<div class="op-main">
+
+			{{! ---------- Nome ---------- }}
+			<div class="op-title">
+				<input
+					class="op-name"
+					name="name"
+					type="text"
+					value="{{actor.name}}"
+					placeholder="{{localize 'op.agentNamePlaceholder'}}"
+					autocomplete="off"
+				/>
+			</div>
+
+			{{! ---------- Classe / Origem / Trilha + progressão ---------- }}
+			<div class="op-ident">
+				<div class="op-tags">
+					{{#each detailSlots}}
+						{{#if item}}
+							<div
+								class="op-tag op-tag--{{type}}"
+								data-document-class="Item"
+								data-item-id="{{item.id}}"
+								data-item-type="{{type}}"
+							>
+								<a class="op-tag-name" data-action="viewDoc" title="{{label}}: {{item.name}}">{{item.name}}</a>
+								{{#if @root.editable}}
+									<a class="op-tag-del" data-action="deleteDoc" title="{{localize 'op.delete'}}"><i class="fa-solid fa-xmark"></i></a>
+								{{/if}}
+							</div>
+						{{else}}
+							<a class="op-tag op-tag--empty op-tag--{{type}}" data-action="findItem" data-reference="{{type}}" data-key="{{type}}">
+								<i class="fa-solid fa-plus"></i> {{label}}
+							</a>
+						{{/if}}
+					{{/each}}
+				</div>
+
+				<div class="op-level">
+					{{#if isSurvivor}}
+						<label class="op-level-cell">
+							<span>{{localize "op.stage"}}</span>
+							<input type="number" name="system.stage.value" value="{{system.stage.value}}" min="1" max="5" />
+						</label>
+					{{else}}
+						{{#if progressRuleIsNivel}}
+							<label class="op-level-cell">
+								<span>{{localize "op.nivel"}}</span>
+								<input type="number" name="system.nivel.value" value="{{system.nivel.value}}" min="1" max="20" />
+							</label>
+						{{/if}}
+						<label class="op-level-cell op-level-cell--nex">
+							<span>{{localize "op.NEX"}}</span>
+							<input type="number" name="system.NEX.value" value="{{system.NEX.value}}" min="0" max="99" />
+						</label>
+					{{/if}}
+				</div>
+			</div>
+
+			{{! ---------- Recursos (PV / SAN / PE ou PD) ---------- }}
+			<div class="op-vitals">
+				{{#each resourceBars}}
+					<div class="op-vital op-vital--{{key}}">
+						<div class="op-vital-top">
+							<span class="op-tape" title="{{name}}">{{short}}</span>
+							<span class="op-vital-nums">
+								<input class="op-num" type="number" name="system.{{key}}.value" value="{{value}}" />
+								<span class="op-slash">/</span>
+								<input class="op-num op-num--max" type="number" name="system.{{key}}.max" value="{{max}}" {{#if locked}}disabled{{/if}} />
+							</span>
+							{{#if perRound}}<span class="op-per" title="{{name}} / {{localize 'OPDOSSIE.PerRound'}}">+{{perRound}}</span>{{/if}}
+						</div>
+						{{#if asBlocks}}
+							<div class="op-blocks">
+								{{#each blocks}}
+									<button
+										type="button"
+										class="op-block {{#if on}}on{{/if}}"
+										data-action="setResource"
+										data-res="{{../key}}"
+										data-value="{{n}}"
+										aria-label="{{../short}} {{n}}"
+									></button>
+								{{/each}}
+							</div>
+						{{else}}
+							<div class="op-strip"><i style="width: {{pct}}%"></i></div>
+						{{/if}}
+					</div>
+				{{/each}}
+			</div>
+		</div>
+	</div>
+
+	{{! ---------- Atributos ---------- }}
+	<div class="op-attrs-wrap">
+		<span class="op-tape op-tape--big">{{localize "OPDOSSIE.Attributes"}}</span>
+		<div class="op-attrs">
+			{{#each attributes}}
+				<div class="op-attr" data-key="{{key}}">
+					<button
+						type="button"
+						class="op-attr-name rollable"
+						data-action="onRollAttributeTest"
+						data-label="{{label}}"
+						title="{{localize 'OPDOSSIE.RollAttribute'}}"
+					>{{label}}</button>
+					<label class="op-badge op-badge--dia">
+						<input type="number" name="system.attributes.{{key}}.value" value="{{value}}" min="0" />
+					</label>
+				</div>
+			{{/each}}
+		</div>
+
+		<div class="op-stats">
+			<div class="op-stat"><span>{{localize "op.defense"}}</span><b>{{system.defense.value}}</b></div>
+			<div class="op-stat"><span>{{localize "op.dodge"}}</span><b>{{system.defense.dodge}}</b></div>
+			<div class="op-stat"><span>{{localize "op.deslocamento"}}</span><b>{{system.desloc.value}}<small>m</small></b></div>
+			<div class="op-stat"><span>{{localize "OPDOSSIE.RitualDT"}}</span><b>{{system.ritual.DT}}</b></div>
+		</div>
+	</div>
+</header>
