@@ -18,5 +18,9 @@
 	"OPDOSSIE.RollSkill": "Click to roll · right-click opens the rulebook",
 	"OPDOSSIE.CycleHint": "click to change training",
 	"OPDOSSIE.AttrDice": "Base attribute (dice rolled)",
-	"OPDOSSIE.ModHint": "Extra skill bonus"
+	"OPDOSSIE.ModHint": "Extra skill bonus",
+	"OPDOSSIE.Degree.untrained": "Untrained",
+	"OPDOSSIE.Degree.trained": "Trained",
+	"OPDOSSIE.Degree.veteran": "Veteran",
+	"OPDOSSIE.Degree.expert": "Expert"
 }

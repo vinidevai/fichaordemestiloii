@@ -28,10 +28,10 @@ const DEGREE_SHAPE = {
 };
 const DEGREE_CYCLE = ["untrained", "trained", "veteran", "expert"];
 const DEGREE_TIP = {
-	untrained: "op.degreeTrainingChoices.dest",
-	trained: "op.degreeTrainingChoices.trei",
-	veteran: "op.degreeTrainingChoices.vet",
-	expert: "op.degreeTrainingChoices.expe",
+	untrained: "OPDOSSIE.Degree.untrained",
+	trained: "OPDOSSIE.Degree.trained",
+	veteran: "OPDOSSIE.Degree.veteran",
+	expert: "OPDOSSIE.Degree.expert",
 };
 
 /** Ordem dos atributos na ficha (mesma do sistema). */
@@ -65,7 +65,7 @@ export function defineDossieSheet(Base) {
 	return class OrdemDossieSheet extends Base {
 		static DEFAULT_OPTIONS = {
 			classes: ["op-dossie"],
-			position: { width: 860, height: 920 },
+			position: { width: 860, height: 790 },
 			actions: {
 				showPortrait: OrdemDossieSheet._onShowPortrait,
 				setResource: OrdemDossieSheet._onSetResource,

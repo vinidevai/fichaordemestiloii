@@ -18,5 +18,9 @@
 	"OPDOSSIE.RollSkill": "Clique para rolar · botão direito abre o livro de regras",
 	"OPDOSSIE.CycleHint": "clique para mudar o treinamento",
 	"OPDOSSIE.AttrDice": "Atributo base (dados rolados)",
-	"OPDOSSIE.ModHint": "Bônus extra da perícia"
+	"OPDOSSIE.ModHint": "Bônus extra da perícia",
+	"OPDOSSIE.Degree.untrained": "Destreinado",
+	"OPDOSSIE.Degree.trained": "Treinado",
+	"OPDOSSIE.Degree.veteran": "Veterano",
+	"OPDOSSIE.Degree.expert": "Expert"
 }
