@@ -2,11 +2,35 @@
 
 Uma ficha de agente alternativa para o sistema **[Ordem Paranormal](https://github.com/SouOWendel/ordemparanormal_fvtt)** no Foundry VTT, com a cara das fichas do playtest de Ordem Paranormal 2: fundo escuro e texturizado, moldura "impressa", etiquetas de fita rasgada, atributos em losangos, selos de treinamento e barras de vida em blocos.
 
-![Perícias](docs/img/pericias.png)
+![Perícias](docs/img/previa-pericias.png)
 
-> As imagens são ilustrativas (retratos genéricos, personagens inventados).
+> As imagens são **prévias geradas por simulação** (retratos genéricos, personagens e itens inventados) e são refeitas a cada versão. Veja todas as abas em [Prévia completa](#prévia-completa).
 
 **Não muda nenhum dado.** A ficha usa exatamente os mesmos campos do sistema (atributos, PV/PE/SAN, NEX, perícias, itens). Dá para ativar, desativar ou trocar ator por ator sem perder nada, e rolagens, arrastar itens, efeitos e condições continuam funcionando como sempre, porque a ficha do módulo é uma extensão da original.
+
+---
+
+## Prévia completa
+
+Janela no tamanho padrão (860 × 790). Tudo isso aparece sem rolar, exceto listas muito longas de itens.
+
+### Perícias
+![Perícias](docs/img/previa-pericias.png)
+
+### Inventário
+![Inventário](docs/img/previa-inventario.png)
+
+### Habilidades
+![Habilidades](docs/img/previa-habilidades.png)
+
+### Rituais
+![Rituais](docs/img/previa-rituais.png)
+
+### Biografia
+![Biografia](docs/img/previa-biografia.png)
+
+### Efeitos
+![Efeitos](docs/img/previa-efeitos.png)
 
 ---
 
@@ -145,6 +169,7 @@ lang/                    pt-BR e en
 - A ficha **herda** a ficha de agente do sistema, então só o que muda de aparência foi reescrito (cabeçalho, perícias, abas). O resto (itens, rituais, efeitos, arrastar e soltar) é do sistema.
 - O CSS fica sob `.system-ordemparanormal .application.ordemparanormal.actor.op-dossie` para ter prioridade sobre o CSS do sistema sem `!important` em todo lugar.
 - As abas reaproveitadas do sistema ficam escuras com `filter: invert(1) hue-rotate(180deg)`. É uma solução prática, não a mais elegante; se quiser refazer alguma aba com visual próprio, é só trocar o template da parte correspondente em `static PARTS`.
+- **Prévia:** as imagens deste README vêm de um gerador que roda a classe real da ficha e os templates reais fora do Foundry (simulação, não substitui testar no Foundry). Ele fica no repositório de trabalho do autor e é rodado antes de cada versão.
 - **Lançar uma versão nova:** crie uma release com tag `vX.Y.Z`. O fluxo em `.github/workflows/release.yml` atualiza o `module.json`, gera o `module.zip` e anexa os dois à release, e o link de instalação passa a entregar a versão nova.
 
 ## Status

@@ -906,6 +906,10 @@
 & .window-content > .tab:not(.op-skills).active {
 	filter: invert(1) hue-rotate(180deg);
 }
+/* O texto sem cor própria dessas abas herdaria o tom claro do tema e, invertido, ficaria escuro: volta ao escuro original do sistema. */
+& .window-content > .tab:not(.op-skills) {
+	color: #171717;
+}
 & .window-content > .tab:not(.op-skills) img,
 & .window-content > .tab:not(.op-skills) video {
 	filter: invert(1) hue-rotate(180deg);

@@ -2,7 +2,7 @@
 	"id": "op-ficha-playtest",
 	"title": "Ordem Paranormal — Ficha Dossiê (estilo Playtest)",
 	"description": "Ficha alternativa de agente para o sistema Ordem Paranormal: tema escuro texturizado, cor de destaque por personagem, retrato em formato retrato (clique para ver a imagem inteira) e barras de recursos em blocos, inspirada nas fichas do playtest de Ordem Paranormal 2.",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"compatibility": {
 		"minimum": "13",
 		"verified": "13"
@@ -15,7 +15,7 @@
 	],
 	"url": "https://github.com/vinidevai/fichaordemestiloii",
 	"manifest": "https://github.com/vinidevai/fichaordemestiloii/releases/latest/download/module.json",
-	"download": "https://github.com/vinidevai/fichaordemestiloii/releases/download/v1.0.2/module.zip",
+	"download": "https://github.com/vinidevai/fichaordemestiloii/releases/download/v1.0.3/module.zip",
 	"bugs": "https://github.com/vinidevai/fichaordemestiloii/issues",
 	"license": "https://github.com/vinidevai/fichaordemestiloii/blob/main/LICENSE",
 	"readme": "https://github.com/vinidevai/fichaordemestiloii#readme",
