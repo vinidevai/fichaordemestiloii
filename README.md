@@ -121,6 +121,13 @@ Abra uma [issue](https://github.com/vinidevai/fichaordemestiloii/issues). Se for
 
 ---
 
+## A ficha não apareceu?
+
+1. Confira se o módulo está **ativo no mundo** (Game Settings → Manage Modules) e se o mundo usa o sistema Ordem Paranormal.
+2. Recarregue a página (F5). Depois de instalar ou atualizar um módulo, o Foundry só carrega o código novo ao recarregar.
+3. Abra a ficha de um agente → menu (três pontinhos) → **Configurar Ficha**. A opção **Ordem Paranormal — Dossiê (Playtest)** deve estar na lista.
+4. Se o registro falhar, o GM vê um aviso vermelho na tela. Aperte **F12**, aba *Console*, e procure linhas que começam com `op-ficha-playtest |`. Abra uma [issue](https://github.com/vinidevai/fichaordemestiloii/issues) com essas linhas e a versão do Foundry (a do console: `game.version`).
+
 ## Para quem quiser mexer
 
 ```
